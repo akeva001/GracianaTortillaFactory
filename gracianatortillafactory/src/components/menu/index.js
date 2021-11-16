@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import "./index.css";
-
-const options = [
-  { value: "Food", label: "Food" },
-  { value: "Being Fabulous", label: "Being Fabulous" },
-  { value: "Ken Wheeler", label: "Ken Wheeler" },
-  { value: "ReasonML", label: "ReasonML" },
-  { value: "Unicorns", label: "Unicorns" },
-  { value: "Kittens", label: "Kittens" },
-];
 
 class dropdownMenu extends React.Component {
   handleChange = (value) => {
@@ -24,9 +14,13 @@ class dropdownMenu extends React.Component {
   };
 
   render() {
+    const { options, title } = this.props;
+
     return (
       <div style={{ margin: "1rem 0" }}>
-        <label htmlFor="color">Tortilla </label>
+        <label htmlFor="color" style={{ padding: "7px" }}>
+          {title}
+        </label>
         <Select
           id="color"
           options={options}
