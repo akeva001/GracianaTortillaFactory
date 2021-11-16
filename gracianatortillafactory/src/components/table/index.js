@@ -74,7 +74,7 @@ class SelectTableComponent extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="tableWrapper">
         <div className="row">
           <div className="col-md-12">
             <Table striped bordered hover responsive="md">
@@ -123,7 +123,7 @@ class SelectTableComponent extends React.Component {
               <b>All Row Items:</b>
               <code>{JSON.stringify(this.state.List)}</code>
             </div> */}
-            <h1>Preview</h1>
+            <h1 style={{ paddingTop: "20px" }}>Preview</h1>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <p style={{ padding: "10px" }}>1 Shift</p>
               <p style={{ padding: "10px" }}>2 Shifts</p>
@@ -149,7 +149,6 @@ class SelectTableComponent extends React.Component {
                       className={user.selected ? "selected" : ""}
                     >
                       <th scope="row">
-                        {" "}
                         <td>{user.code}</td>
                       </th>
 
