@@ -58,6 +58,7 @@
   width: 200px;
   z-index: 0;
   padding-top: 16px;
+  padding-right: 12px;
 }
 .button {
   padding: 10px;
