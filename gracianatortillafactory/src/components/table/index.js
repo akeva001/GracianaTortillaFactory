@@ -8,7 +8,7 @@ const selectRow = {
 
 class table extends React.Component {
   render() {
-    const { products, columns } = this.props;
+    const { products, columns, columns1 } = this.props;
 
     return (
       <div style={{ maxWidth: "1200px" }}>
@@ -18,6 +18,10 @@ class table extends React.Component {
           columns={columns}
           selectRow={selectRow}
         />
+        <div className="title">
+          <h1>Preview</h1>
+        </div>
+        <BootstrapTable keyField="id" data={products} columns={columns1} />
       </div>
     );
   }

@@ -81,18 +81,10 @@ const App = () => {
       </div>
       <div className="tableWrapper">
         <div>
-          <Table products={products} columns={columns1} />
+          <Table products={products} columns={columns1} columns1={columns} />
         </div>
-      </div>
-      <div className="title">
-        <h1>Preview</h1>
       </div>
 
-      <div className="tableWrapper">
-        <div>
-          <PrintTable products={products} columns={columns} />
-        </div>
-      </div>
       <div className="buttonWrapper">
         <div className="button">
           <Button />
