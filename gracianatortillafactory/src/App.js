@@ -68,17 +68,6 @@ const App = () => {
         <img src={"/images/logo.png"} alt="Logo" height="200px" />
       </div>
 
-      <div className="dropdownWrapper">
-        <div className="form">
-          <Form />
-        </div>
-        <div className="dropdown">
-          <Menu title={"Tortilla"} options={options} />
-        </div>
-        <div className="dropdown">
-          <Menu title={"Filter by"} options={options1} />
-        </div>
-      </div>
       <div className="tableWrapper">
         <div>
           <Table products={products} columns={columns1} columns1={columns} />

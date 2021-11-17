@@ -1,7 +1,19 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
+import Form from "../form";
+import Menu from "../menu";
 
-const Users = [
+const options = [
+  { value: "Corn", label: "Corn" },
+  { value: "Flour", label: "Flour" },
+  { value: "Chip", label: "Chip" },
+];
+const options1 = [
+  { value: "Color", label: "Color" },
+  { value: "Size", label: "Size" },
+];
+const Items = [
   {
     id: 1,
     selected: false,
@@ -16,13 +28,21 @@ const Users = [
     description: '4" 1/4 MINI CORN TORTILLA 5 DZ. 37',
     source: "BAT REG 4 | 5",
   },
+  {
+    id: 3,
+    selected: false,
+    code: "1010",
+    description: '4" 1/4 MINI CORN TORTILLA 5 DZ. 37',
+    source: "BAT REG 4 | 5",
+  },
 ];
 
 class SelectTableComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      List: Users,
+      List: Items,
+      codeList: Items.code,
       MasterChecked: false,
       SelectedList: [],
       shifts: "1",
@@ -32,6 +52,18 @@ class SelectTableComponent extends React.Component {
   // Select/ UnSelect Table rows
   onMasterCheck(e) {
     let tempList = this.state.List;
+    // Check/ UnCheck All Items
+    tempList.map((user) => (user.selected = e.target.checked));
+
+    //Update State
+    this.setState({
+      MasterChecked: e.target.checked,
+      List: tempList,
+      SelectedList: this.state.List.filter((e) => e.selected),
+    });
+  }
+  onCodeCheck(e) {
+    let tempList = this.state.codeList;
     // Check/ UnCheck All Items
     tempList.map((user) => (user.selected = e.target.checked));
 
@@ -77,7 +109,21 @@ class SelectTableComponent extends React.Component {
     return (
       <div className="tableWrapper">
         <div className="row">
-          <div className="col-md-12">
+          <div
+            className="col-md-12"
+            style={{ borderBottom: "2px solid #eee", paddingBottom: "20px" }}
+          >
+            <div className="dropdownWrapper">
+              <div className="form">
+                <Form onChange={(e) => this.onCodeCheck(e)} />
+              </div>
+              <div className="dropdown">
+                <Menu title={"Tortilla"} options={options} />
+              </div>
+              <div className="dropdown">
+                <Menu title={"Filter by"} options={options1} />
+              </div>
+            </div>
             <Table striped bordered hover responsive="md">
               <thead>
                 <tr>
@@ -129,6 +175,7 @@ class SelectTableComponent extends React.Component {
                   padding: "10px",
                   cursor: "pointer",
                   color: this.state.shifts === "1" ? "white" : "black",
+                  fontSize: "25px",
                 }}
               >
                 1 Shift
@@ -146,6 +193,7 @@ class SelectTableComponent extends React.Component {
                   padding: "10px",
                   cursor: "pointer",
                   color: this.state.shifts === "2" ? "white" : "black",
+                  fontSize: "25px",
                 }}
               >
                 2 Shifts
