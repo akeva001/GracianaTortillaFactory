@@ -63,6 +63,7 @@ class SelectTableComponent extends React.Component {
       List: tempList,
       SelectedList: this.state.List.filter((e) => e.selected),
     });
+    console.log(this.state.shifts);
   }
 
   // Event to get selected rows(Optional)
@@ -113,54 +114,114 @@ class SelectTableComponent extends React.Component {
                 ))}
               </tbody>
             </Table>
-            {/* <button
-              className="btn btn-primary"
-              onClick={() => this.getSelectedRows()}
+          </div>
+          <h1 style={{ paddingTop: "20px" }}>Preview</h1>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div
+              onClick={() =>
+                this.setState({
+                  shifts: "1",
+                })
+              }
             >
-              Get Selected Items {this.state.SelectedList.length}
-            </button> */}
-            {/* <div className="row">
-              <b>All Row Items:</b>
-              <code>{JSON.stringify(this.state.List)}</code>
-            </div> */}
-            <h1 style={{ paddingTop: "20px" }}>Preview</h1>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <p style={{ padding: "10px" }}>1 Shift</p>
-              <p style={{ padding: "10px" }}>2 Shifts</p>
+              <p
+                style={{
+                  padding: "10px",
+                  cursor: "pointer",
+                  color: this.state.shifts === "1" ? "black" : "white",
+                }}
+              >
+                1 Shift
+              </p>
             </div>
-
-            <div className="row">
-              {/* <b>Selected Row Items(Click Button To Get):</b>
-              <code>{JSON.stringify(this.state.SelectedList)}</code> */}
-              <Table striped bordered hover responsive="md">
-                <thead>
-                  <tr>
-                    <th scope="col">ITEM CODE</th>
-                    <th scope="col">ITEM DESCRIPTION</th>
-                    <th scope="col">SOURCE</th>
-                    <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
-                    <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.SelectedList.map((user) => (
-                    <tr
-                      key={user.id}
-                      className={user.selected ? "selected" : ""}
-                    >
-                      <th scope="row">
-                        <td>{user.code}</td>
-                      </th>
-
-                      <td>{user.description}</td>
-                      <td>{user.source}</td>
-                      <td></td>
-                      <td></td>
+            <div
+              onClick={() =>
+                this.setState({
+                  shifts: "2",
+                })
+              }
+            >
+              <p
+                style={{
+                  padding: "10px",
+                  cursor: "pointer",
+                  color: this.state.shifts === "2" ? "black" : "white",
+                }}
+              >
+                2 Shifts
+              </p>
+            </div>
+          </div>
+          <div style={{ minHeight: "100px" }}>
+            {this.state.shifts === "1" ? (
+              <div className="row">
+                <Table striped bordered hover responsive="md">
+                  <thead>
+                    <tr>
+                      <th scope="col">ITEM CODE</th>
+                      <th scope="col">ITEM DESCRIPTION</th>
+                      <th scope="col">SOURCE</th>
+                      <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
+                      <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
                     </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {this.state.SelectedList.map((user) => (
+                      <tr
+                        key={user.id}
+                        className={user.selected ? "selected" : ""}
+                      >
+                        <th scope="row">
+                          <td>{user.code}</td>
+                        </th>
+
+                        <td>{user.description}</td>
+                        <td>{user.source}</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            ) : (
+              <div className="row">
+                <Table striped bordered hover responsive="md">
+                  <thead>
+                    <tr>
+                      <th scope="col">ITEM CODE</th>
+                      <th scope="col">ITEM DESCRIPTION</th>
+                      <th scope="col">SOURCE</th>
+                      <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
+                      <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
+                      <th scope="col">SOURCE</th>
+                      <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
+                      <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.SelectedList.map((user) => (
+                      <tr
+                        key={user.id}
+                        className={user.selected ? "selected" : ""}
+                      >
+                        <th scope="row">
+                          <td>{user.code}</td>
+                        </th>
+
+                        <td>{user.description}</td>
+                        <td>{user.source}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{user.source}</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            )}
           </div>
         </div>
       </div>
