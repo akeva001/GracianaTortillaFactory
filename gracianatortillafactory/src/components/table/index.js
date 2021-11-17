@@ -152,7 +152,7 @@ class SelectTableComponent extends React.Component {
               </p>
             </div>
           </div>
-          <div style={{ minHeight: "100px" }}>
+          <div>
             {this.state.shifts === "1" ? (
               <div className="row">
                 <Table striped bordered hover responsive="md">

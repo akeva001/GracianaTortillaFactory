@@ -65,7 +65,7 @@ const App = () => {
         </div>
       </div>
       <div className="logo">
-        <img src={"/images/logo.png"} alt="Logo" height="300px" />
+        <img src={"/images/logo.png"} alt="Logo" height="200px" />
       </div>
 
       <div className="dropdownWrapper">
