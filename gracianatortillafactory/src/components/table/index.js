@@ -107,9 +107,9 @@ class SelectTableComponent extends React.Component {
                         onChange={(e) => this.onItemCheck(e, user)}
                       />
                     </th>
-                    <td>{user.code}</td>
-                    <td>{user.description}</td>
-                    <td>{user.source}</td>
+                    <td style={{ color: "white" }}>{user.code}</td>
+                    <td style={{ color: "white" }}>{user.description}</td>
+                    <td style={{ color: "white" }}>{user.source}</td>
                   </tr>
                 ))}
               </tbody>
@@ -128,7 +128,7 @@ class SelectTableComponent extends React.Component {
                 style={{
                   padding: "10px",
                   cursor: "pointer",
-                  color: this.state.shifts === "1" ? "black" : "white",
+                  color: this.state.shifts === "1" ? "white" : "black",
                 }}
               >
                 1 Shift
@@ -145,7 +145,7 @@ class SelectTableComponent extends React.Component {
                 style={{
                   padding: "10px",
                   cursor: "pointer",
-                  color: this.state.shifts === "2" ? "black" : "white",
+                  color: this.state.shifts === "2" ? "white" : "black",
                 }}
               >
                 2 Shifts
@@ -165,18 +165,18 @@ class SelectTableComponent extends React.Component {
                       <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody style={{ color: "white" }}>
                     {this.state.SelectedList.map((user) => (
                       <tr
                         key={user.id}
                         className={user.selected ? "selected" : ""}
                       >
                         <th scope="row">
-                          <td>{user.code}</td>
+                          <td style={{ color: "white" }}>{user.code}</td>
                         </th>
 
-                        <td>{user.description}</td>
-                        <td>{user.source}</td>
+                        <td style={{ color: "white" }}>{user.description}</td>
+                        <td style={{ color: "white" }}>{user.source}</td>
                         <td></td>
                         <td></td>
                       </tr>
@@ -206,14 +206,14 @@ class SelectTableComponent extends React.Component {
                         className={user.selected ? "selected" : ""}
                       >
                         <th scope="row">
-                          <td>{user.code}</td>
+                          <td style={{ color: "white" }}>{user.code}</td>
                         </th>
 
-                        <td>{user.description}</td>
-                        <td>{user.source}</td>
+                        <td style={{ color: "white" }}>{user.description}</td>
+                        <td style={{ color: "white" }}>{user.source}</td>
                         <td></td>
                         <td></td>
-                        <td>{user.source}</td>
+                        <td style={{ color: "white" }}>{user.source}</td>
                         <td></td>
                         <td></td>
                       </tr>
