@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import Form from "../form";
 import Menu from "../menu";
+import Select from "react-select";
 
 const options = [
   { value: "Corn", label: "Corn" },
@@ -46,10 +47,12 @@ class SelectTableComponent extends React.Component {
       SelectedList: [],
       shifts: "1",
       filteredList: Items,
+      tortilla: null,
     };
 
     this.filterList = this.filterList.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onTortillaClick = this.onTortillaClick.bind(this);
   }
 
   // Select/ UnSelect Table rows
@@ -94,7 +97,14 @@ class SelectTableComponent extends React.Component {
     });
     //console.log(this.state.shifts);
   }
-
+  onTortillaClick(e) {
+    // Update State
+    const q = e.label.toLowerCase();
+    this.setState({
+      tortilla: q,
+    });
+    console.log(this.state.tortilla);
+  }
   // Event to get selected rows(Optional)
   getSelectedRows() {
     this.setState({
@@ -138,7 +148,24 @@ class SelectTableComponent extends React.Component {
                 />
               </div>
               <div className="dropdown">
-                <Menu title={"Tortilla"} options={options} />
+                <div style={{ margin: "1rem 0" }}>
+                  <label htmlFor="color" style={{ padding: "7px" }}>
+                    Tortilla
+                  </label>
+                  <Select
+                    id="color"
+                    options={options}
+                    multi={true}
+                    onChange={this.onTortillaClick}
+                    //onBlur={this.handleBlur}
+                    value={this.props.value}
+                  />
+                  {!!this.props.error && this.props.touched && (
+                    <div style={{ color: "red", marginTop: ".5rem" }}>
+                      {this.props.error}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="dropdown">
                 <Menu title={"Filter by"} options={options1} />
