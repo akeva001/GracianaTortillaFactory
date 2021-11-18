@@ -99,10 +99,15 @@ class SelectTableComponent extends React.Component {
   }
   onTortillaClick(e) {
     // Update State
+    let list = this.state.List;
     const q = e.label.toLowerCase();
     this.setState({
       tortilla: q,
     });
+    list = list.filter(function (item) {
+      return item.description.toLowerCase().indexOf(q) != -1; // returns true or false
+    });
+    this.setState({ filteredList: list });
     console.log(this.state.tortilla);
   }
   // Event to get selected rows(Optional)
