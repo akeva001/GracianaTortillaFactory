@@ -83,6 +83,10 @@ class SelectTableComponent extends React.Component {
       shifts: "1",
       filteredList: Items,
       tortilla: null,
+      select: {
+        value: options[0], // "One" as initial value for react-select
+        options, // all available options
+      },
     };
 
     this.filterList = this.filterList.bind(this);
@@ -173,6 +177,23 @@ class SelectTableComponent extends React.Component {
   handleClear2() {
     this.setState({ filteredList: this.state.List });
   }
+  setValue = (value) => {
+    this.setState((prevState) => ({
+      select: {
+        ...prevState.select,
+        value,
+      },
+    }));
+  };
+
+  handleChange = (value) => {
+    this.setValue(value);
+  };
+
+  handleClick = () => {
+    this.setValue(null); // here we reset value
+  };
+
   render() {
     return (
       <div className="tableWrapper">
@@ -265,7 +286,13 @@ class SelectTableComponent extends React.Component {
                 </div>
               </div>
 
-              <div className="clearButton" onClick={() => this.handleClear2()}>
+              <div
+                className="clearButton"
+                onClick={() => {
+                  this.handleClear2();
+                  this.handleClick();
+                }}
+              >
                 <Button text={"Clear"} />
               </div>
             </div>
@@ -318,7 +345,7 @@ class SelectTableComponent extends React.Component {
               </Table>
             </div>
           </div>
-          <h1 style={{ paddingTop: "20px", color: "white" }}>Preview</h1>
+          <h1 style={{ paddingTop: "30px", color: "white" }}>Preview</h1>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               onClick={() =>
