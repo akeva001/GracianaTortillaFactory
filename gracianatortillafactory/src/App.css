@@ -65,6 +65,10 @@ html {
 .button {
   width: 200px;
 }
+.clearButton {
+  width: 100px;
+  padding-top: 47px;
+}
 .tableWrapper {
   display: flex;
   flex-direction: row;

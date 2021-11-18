@@ -1,6 +1,5 @@
 import "./App.css";
 import Menu from "../src/components/menu";
-import Button from "../src/components/button";
 import Table from "../src/components/table";
 import Form from "../src/components/form";
 import PrintTable from "../src/components/printTable";
@@ -71,12 +70,6 @@ const App = () => {
       <div className="tableWrapper">
         <div>
           <Table products={products} columns={columns1} columns1={columns} />
-        </div>
-      </div>
-
-      <div className="buttonWrapper">
-        <div className="button">
-          <Button />
         </div>
       </div>
     </div>

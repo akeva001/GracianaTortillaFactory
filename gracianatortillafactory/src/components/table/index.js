@@ -4,11 +4,25 @@ import BootstrapTable from "react-bootstrap-table-next";
 import Form from "../form";
 import Menu from "../menu";
 import Select from "react-select";
+import Button from "../../components/button";
+import ReactToPrint from "react-to-print";
 
 const options = [
   { value: "Corn", label: "Corn" },
   { value: "Flour", label: "Flour" },
   { value: "Chip", label: "Chip" },
+];
+const colors = [
+  { value: "Red", label: "Red" },
+  { value: "Blue", label: "Blue" },
+  { value: "Green", label: "Green" },
+  { value: "Yellow", label: "Yellow" },
+  { value: "White", label: "White" },
+];
+const sizes = [
+  { value: '4"', label: '4"' },
+  { value: '5"', label: '5"' },
+  { value: '6"', label: '6"' },
 ];
 const options1 = [
   { value: "Color", label: "Color" },
@@ -19,14 +33,14 @@ const Items = [
     id: 1,
     selected: false,
     code: "1000",
-    description: '4" MINI CORN TORTILLA 5 DZ. 30',
+    description: '4" MINI RED CORN TORTILLA 5 DZ. 30',
     source: "BAT REG 4 | 5",
   },
   {
     id: 2,
     selected: false,
     code: "1005",
-    description: '4" 1/4 MINI CORN TORTILLA 5 DZ. 37',
+    description: '5" 1/4 MINI CORN TORTILLA 5 DZ. 37',
     source: "BAT REG 4 | 5",
   },
   {
@@ -40,14 +54,14 @@ const Items = [
     id: 4,
     selected: false,
     code: "1080",
-    description: '4" MINI CORN TORTILLA 5 DZ. 30',
+    description: '6" MINI CORN TORTILLA 5 DZ. 30',
     source: "BAT REG 4 | 5",
   },
   {
     id: 5,
     selected: false,
     code: "1040",
-    description: '4" 1/4 MINI FLOUR TORTILLA 5 DZ. 37',
+    description: '5" 1/4 MINI FLOUR TORTILLA 5 DZ. 37',
     source: "BAT REG 4 | 5",
   },
   {
@@ -200,9 +214,9 @@ class SelectTableComponent extends React.Component {
                   </label>
                   <Select
                     id="color"
-                    options={options}
+                    options={colors}
                     multi={true}
-                    //onChange={this.onTortillaClick}
+                    onChange={this.onTortillaClick}
                     //onBlur={this.handleBlur}
                     value={this.props.value}
                   />
@@ -220,9 +234,9 @@ class SelectTableComponent extends React.Component {
                   </label>
                   <Select
                     id="color"
-                    options={options}
+                    options={sizes}
                     multi={true}
-                    //onChange={this.onTortillaClick}
+                    onChange={this.onTortillaClick}
                     //onBlur={this.handleBlur}
                     value={this.props.value}
                   />
@@ -232,6 +246,10 @@ class SelectTableComponent extends React.Component {
                     </div>
                   )}
                 </div>
+              </div>
+
+              <div className="clearButton">
+                <Button text={"Clear"} />
               </div>
             </div>
             <Table striped bordered hover responsive="md">
@@ -310,7 +328,7 @@ class SelectTableComponent extends React.Component {
               </p>
             </div>
           </div>
-          <div>
+          <div ref={(el) => (this.componentRef = el)}>
             {this.state.shifts === "1" ? (
               <div className="row">
                 <Table striped bordered hover responsive="md">
@@ -380,6 +398,22 @@ class SelectTableComponent extends React.Component {
                 </Table>
               </div>
             )}
+          </div>
+          <div className="buttonWrapper">
+            <div className="button">
+              <ReactToPrint
+                trigger={() => {
+                  // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+                  // to the root node of the returned component as it will be overwritten.
+                  return (
+                    <a href="#">
+                      <Button text={"Print"} />{" "}
+                    </a>
+                  );
+                }}
+                content={() => this.componentRef}
+              />
+            </div>
           </div>
         </div>
       </div>
