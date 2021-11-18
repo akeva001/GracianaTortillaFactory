@@ -121,11 +121,24 @@ class SelectTableComponent extends React.Component {
         <div className="row">
           <div
             className="col-md-12"
-            style={{ borderBottom: "2px solid #eee", paddingBottom: "20px" }}
+            style={{
+              borderBottom: "2px solid #eee",
+              paddingBottom: "20px",
+              zIndex: "2",
+            }}
           >
             <div className="dropdownWrapper">
               <div className="form">
-                <input onChange={this.onChange} />
+                <input
+                  placeholder={"Code"}
+                  style={{
+                    height: "37px",
+                    borderRadius: "4px",
+                    borderColor: "transparent",
+                    paddingLeft: "15px",
+                  }}
+                  onChange={this.onChange}
+                />
               </div>
               <div className="dropdown">
                 <Menu title={"Tortilla"} options={options} />

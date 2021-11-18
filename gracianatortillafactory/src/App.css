@@ -2,7 +2,6 @@
   text-align: center;
   background-color: #777;
   padding-bottom: 100px;
-  color: "white";
 }
 
 .App-logo {
@@ -26,7 +25,6 @@ html {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -61,8 +59,8 @@ html {
 .form {
   width: 200px;
   z-index: 0;
-  padding-top: 66px;
-  padding-right: 12px;
+  padding-top: 64.5px;
+  margin-right: 10px;
 }
 .button {
   width: 200px;
@@ -73,7 +71,7 @@ html {
   justify-content: center;
 
   width: 100%;
-  color: white;
+
   padding-left: 20px;
   padding-right: 20px;
   z-index: 2;
@@ -87,7 +85,7 @@ html {
 .svg {
   position: absolute;
   right: 0px;
-  z-index: -1;
+  z-index: 0;
 }
 .img {
   right: -100px;
