@@ -42,11 +42,14 @@ class SelectTableComponent extends React.Component {
     super(props);
     this.state = {
       List: Items,
-      codeList: Items.code,
       MasterChecked: false,
       SelectedList: [],
       shifts: "1",
+      filteredList: Items,
     };
+
+    this.filterList = this.filterList.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   // Select/ UnSelect Table rows
@@ -63,16 +66,10 @@ class SelectTableComponent extends React.Component {
     });
   }
   onCodeCheck(e) {
-    let tempList = this.state.codeList;
-    // Check/ UnCheck All Items
-    tempList.map((user) => (user.selected = e.target.checked));
-
-    //Update State
     this.setState({
-      MasterChecked: e.target.checked,
-      List: tempList,
-      SelectedList: this.state.List.filter((e) => e.selected),
+      filteredList: this.state.List.filter((e) => e.code(e)),
     });
+    //console.log(this.state.filteredList);
   }
 
   // Update List Item's state and Master Checkbox State
@@ -95,7 +92,7 @@ class SelectTableComponent extends React.Component {
       List: tempList,
       SelectedList: this.state.List.filter((e) => e.selected),
     });
-    console.log(this.state.shifts);
+    //console.log(this.state.shifts);
   }
 
   // Event to get selected rows(Optional)
@@ -105,6 +102,19 @@ class SelectTableComponent extends React.Component {
     });
   }
 
+  onChange(event) {
+    const q = event.target.value.toLowerCase();
+    this.setState({ q }, () => this.filterList());
+  }
+  filterList() {
+    let list = this.state.List;
+    let q = this.state.q;
+
+    list = list.filter(function (item) {
+      return item.code.toLowerCase().indexOf(q) != -1; // returns true or false
+    });
+    this.setState({ filteredList: list });
+  }
   render() {
     return (
       <div className="tableWrapper">
@@ -115,7 +125,7 @@ class SelectTableComponent extends React.Component {
           >
             <div className="dropdownWrapper">
               <div className="form">
-                <Form onChange={(e) => this.onCodeCheck(e)} />
+                <input onChange={this.onChange} />
               </div>
               <div className="dropdown">
                 <Menu title={"Tortilla"} options={options} />
@@ -142,7 +152,7 @@ class SelectTableComponent extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.List.map((user) => (
+                {this.state.filteredList.map((user) => (
                   <tr key={user.id} className={user.selected ? "selected" : ""}>
                     <th scope="row">
                       <input
