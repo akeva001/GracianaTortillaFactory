@@ -36,6 +36,27 @@ const Items = [
     description: '4" 1/4 MINI CORN TORTILLA 5 DZ. 37',
     source: "BAT REG 4 | 5",
   },
+  {
+    id: 4,
+    selected: false,
+    code: "1080",
+    description: '4" MINI CORN TORTILLA 5 DZ. 30',
+    source: "BAT REG 4 | 5",
+  },
+  {
+    id: 5,
+    selected: false,
+    code: "1040",
+    description: '4" 1/4 MINI FLOUR TORTILLA 5 DZ. 37',
+    source: "BAT REG 4 | 5",
+  },
+  {
+    id: 6,
+    selected: false,
+    code: "1020",
+    description: '4" 1/4 MINI CHIP TORTILLA 5 DZ. 37',
+    source: "BAT REG 4 | 5",
+  },
 ];
 
 class SelectTableComponent extends React.Component {
