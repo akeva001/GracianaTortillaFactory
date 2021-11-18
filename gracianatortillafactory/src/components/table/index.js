@@ -118,12 +118,9 @@ class SelectTableComponent extends React.Component {
   render() {
     return (
       <div className="tableWrapper">
-        <div className="row">
+        <div className="row" style={{ margin: "10px", width: "1200px" }}>
           <div
-            className="col-md-12"
             style={{
-              borderBottom: "2px solid #eee",
-              paddingBottom: "20px",
               zIndex: "2",
             }}
           >
@@ -184,7 +181,7 @@ class SelectTableComponent extends React.Component {
               </tbody>
             </Table>
           </div>
-          <h1 style={{ paddingTop: "20px" }}>Preview</h1>
+          <h1 style={{ paddingTop: "20px", color: "white" }}>Preview</h1>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               onClick={() =>
