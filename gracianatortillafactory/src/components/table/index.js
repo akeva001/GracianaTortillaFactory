@@ -165,10 +165,18 @@ class SelectTableComponent extends React.Component {
     });
     this.setState({ filteredList: list });
   }
+  handleClear() {
+    let tempList = this.state.List;
+    const totalCheckedItems = tempList.filter((e) => e.selected).length;
+    this.setState({ SelectedList: [], MasterChecked: false });
+  }
+  handleClear2() {
+    this.setState({ filteredList: this.state.List });
+  }
   render() {
     return (
       <div className="tableWrapper">
-        <div className="row" style={{ margin: "10px", width: "1200px" }}>
+        <div className="row" style={{ margin: "10px", maxWidth: "1200px" }}>
           <div
             style={{
               zIndex: "2",
@@ -189,7 +197,10 @@ class SelectTableComponent extends React.Component {
               </div>
               <div className="dropdown">
                 <div style={{ margin: "1rem 0" }}>
-                  <label htmlFor="color" style={{ padding: "7px" }}>
+                  <label
+                    htmlFor="color"
+                    style={{ padding: "7px", color: "white" }}
+                  >
                     Tortilla
                   </label>
                   <Select
@@ -209,7 +220,10 @@ class SelectTableComponent extends React.Component {
               </div>
               <div className="dropdown">
                 <div style={{ margin: "1rem 0" }}>
-                  <label htmlFor="color" style={{ padding: "7px" }}>
+                  <label
+                    htmlFor="color"
+                    style={{ padding: "7px", color: "white" }}
+                  >
                     Color
                   </label>
                   <Select
@@ -229,7 +243,10 @@ class SelectTableComponent extends React.Component {
               </div>
               <div className="dropdown">
                 <div style={{ margin: "1rem 0" }}>
-                  <label htmlFor="color" style={{ padding: "7px" }}>
+                  <label
+                    htmlFor="color"
+                    style={{ padding: "7px", color: "white" }}
+                  >
                     Size
                   </label>
                   <Select
@@ -248,46 +265,58 @@ class SelectTableComponent extends React.Component {
                 </div>
               </div>
 
-              <div className="clearButton">
+              <div className="clearButton" onClick={() => this.handleClear2()}>
                 <Button text={"Clear"} />
               </div>
             </div>
-            <Table striped bordered hover responsive="md">
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      checked={this.state.MasterChecked}
-                      id="mastercheck"
-                      onChange={(e) => this.onMasterCheck(e)}
-                    />
-                  </th>
-                  <th scope="col">ITEM CODE</th>
-                  <th scope="col">ITEM DESCRIPTION</th>
-                  <th scope="col">SOURCE</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.filteredList.map((user) => (
-                  <tr key={user.id} className={user.selected ? "selected" : ""}>
-                    <th scope="row">
+            <div
+              style={{
+                backgroundColor: "white",
+                borderRadius: "10px",
+                overflow: "hidden",
+                maxHeight: "290px",
+              }}
+            >
+              <Table striped bordered hover responsive="md">
+                <thead>
+                  <tr>
+                    <th scope="col">
                       <input
                         type="checkbox"
-                        checked={user.selected}
                         className="form-check-input"
-                        id="rowcheck{user.id}"
-                        onChange={(e) => this.onItemCheck(e, user)}
+                        checked={this.state.MasterChecked}
+                        id="mastercheck"
+                        onChange={(e) => this.onMasterCheck(e)}
                       />
                     </th>
-                    <td style={{ color: "white" }}>{user.code}</td>
-                    <td style={{ color: "white" }}>{user.description}</td>
-                    <td style={{ color: "white" }}>{user.source}</td>
+                    <th scope="col">ITEM CODE</th>
+                    <th scope="col">ITEM DESCRIPTION</th>
+                    <th scope="col">SOURCE</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {this.state.filteredList.map((user) => (
+                    <tr
+                      key={user.id}
+                      className={user.selected ? "selected" : ""}
+                    >
+                      <th scope="row">
+                        <input
+                          type="checkbox"
+                          checked={user.selected}
+                          className="form-check-input"
+                          id="rowcheck{user.id}"
+                          onChange={(e) => this.onItemCheck(e, user)}
+                        />
+                      </th>
+                      <td style={{ color: "black" }}>{user.code}</td>
+                      <td style={{ color: "black" }}>{user.description}</td>
+                      <td style={{ color: "black" }}>{user.source}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
           </div>
           <h1 style={{ paddingTop: "20px", color: "white" }}>Preview</h1>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -330,7 +359,13 @@ class SelectTableComponent extends React.Component {
           </div>
           <div ref={(el) => (this.componentRef = el)}>
             {this.state.shifts === "1" ? (
-              <div className="row">
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                }}
+              >
                 <Table striped bordered hover responsive="md">
                   <thead>
                     <tr>
@@ -348,11 +383,11 @@ class SelectTableComponent extends React.Component {
                         className={user.selected ? "selected" : ""}
                       >
                         <th scope="row">
-                          <td style={{ color: "white" }}>{user.code}</td>
+                          <td style={{ color: "black" }}>{user.code}</td>
                         </th>
 
-                        <td style={{ color: "white" }}>{user.description}</td>
-                        <td style={{ color: "white" }}>{user.source}</td>
+                        <td style={{ color: "black" }}>{user.description}</td>
+                        <td style={{ color: "black" }}>{user.source}</td>
                         <td></td>
                         <td></td>
                       </tr>
@@ -361,47 +396,60 @@ class SelectTableComponent extends React.Component {
                 </Table>
               </div>
             ) : (
-              <div className="row">
-                <Table striped bordered hover responsive="md">
-                  <thead>
-                    <tr>
-                      <th scope="col">ITEM CODE</th>
-                      <th scope="col">ITEM DESCRIPTION</th>
-                      <th scope="col">SOURCE</th>
-                      <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
-                      <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
-                      <th scope="col">SOURCE</th>
-                      <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
-                      <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.SelectedList.map((user) => (
-                      <tr
-                        key={user.id}
-                        className={user.selected ? "selected" : ""}
-                      >
-                        <th scope="row">
-                          <td style={{ color: "white" }}>{user.code}</td>
-                        </th>
-
-                        <td style={{ color: "white" }}>{user.description}</td>
-                        <td style={{ color: "white" }}>{user.source}</td>
-                        <td></td>
-                        <td></td>
-                        <td style={{ color: "white" }}>{user.source}</td>
-                        <td></td>
-                        <td></td>
+              <div>
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Table striped bordered hover responsive="md">
+                    <thead>
+                      <tr>
+                        <th scope="col">ITEM CODE</th>
+                        <th scope="col">ITEM DESCRIPTION</th>
+                        <th scope="col">SOURCE</th>
+                        <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
+                        <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
+                        <th scope="col">SOURCE</th>
+                        <th scope="col">PRODUCT USED TO MAKE TORTILLA</th>
+                        <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                    </thead>
+                    <tbody>
+                      {this.state.SelectedList.map((user) => (
+                        <tr
+                          key={user.id}
+                          className={user.selected ? "selected" : ""}
+                        >
+                          <th scope="row">
+                            <td style={{ color: "black" }}>{user.code}</td>
+                          </th>
+
+                          <td style={{ color: "black" }}>{user.description}</td>
+                          <td style={{ color: "black" }}>{user.source}</td>
+                          <td></td>
+                          <td></td>
+                          <td style={{ color: "black" }}>{user.source}</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
               </div>
             )}
           </div>
           <div className="buttonWrapper">
+            <div className="button" onClick={(e) => this.onMasterCheck(e)}>
+              <Button text={"Clear"} />
+            </div>
             <div className="button">
               <ReactToPrint
+                documentTitle="Inventory"
+                copyStyles
                 trigger={() => {
                   // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
                   // to the root node of the returned component as it will be overwritten.
