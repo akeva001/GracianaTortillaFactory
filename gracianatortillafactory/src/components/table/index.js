@@ -113,6 +113,24 @@ class SelectTableComponent extends React.Component {
     });
     //console.log(this.state.filteredList);
   }
+  onMasterCheckClear(e) {
+    let tempList = Items;
+    // // Check/ UnCheck All Items
+    tempList.map((user) => (user.selected = false));
+
+    //Update State
+    this.setState({
+      MasterChecked: false,
+      List: tempList,
+      SelectedList: [],
+    });
+  }
+  onCodeCheck(e) {
+    this.setState({
+      filteredList: this.state.List.filter((e) => e.code(e)),
+    });
+    //console.log(this.state.filteredList);
+  }
 
   // Update List Item's state and Master Checkbox State
   onItemCheck(e, item) {
@@ -470,7 +488,7 @@ class SelectTableComponent extends React.Component {
             )}
           </div>
           <div className="buttonWrapper">
-            <div className="button" onClick={(e) => this.onMasterCheck(e)}>
+            <div className="button" onClick={(e) => this.onMasterCheckClear(e)}>
               <Button text={"Clear"} />
             </div>
             <div className="button">
