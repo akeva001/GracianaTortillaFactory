@@ -194,7 +194,44 @@ class SelectTableComponent extends React.Component {
                 </div>
               </div>
               <div className="dropdown">
-                <Menu title={"Filter by"} options={options1} />
+                <div style={{ margin: "1rem 0" }}>
+                  <label htmlFor="color" style={{ padding: "7px" }}>
+                    Color
+                  </label>
+                  <Select
+                    id="color"
+                    options={options}
+                    multi={true}
+                    //onChange={this.onTortillaClick}
+                    //onBlur={this.handleBlur}
+                    value={this.props.value}
+                  />
+                  {!!this.props.error && this.props.touched && (
+                    <div style={{ color: "red", marginTop: ".5rem" }}>
+                      {this.props.error}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="dropdown">
+                <div style={{ margin: "1rem 0" }}>
+                  <label htmlFor="color" style={{ padding: "7px" }}>
+                    Size
+                  </label>
+                  <Select
+                    id="color"
+                    options={options}
+                    multi={true}
+                    //onChange={this.onTortillaClick}
+                    //onBlur={this.handleBlur}
+                    value={this.props.value}
+                  />
+                  {!!this.props.error && this.props.touched && (
+                    <div style={{ color: "red", marginTop: ".5rem" }}>
+                      {this.props.error}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <Table striped bordered hover responsive="md">
