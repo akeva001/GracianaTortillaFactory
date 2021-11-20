@@ -6,6 +6,8 @@ import Menu from "../menu";
 import Select from "react-select";
 import Button from "../../components/button";
 import ReactToPrint from "react-to-print";
+import { Data } from "../toJSON/Data";
+import * as XLSX from "xlsx";
 
 const options = [
   { value: "Corn", label: "Corn" },
