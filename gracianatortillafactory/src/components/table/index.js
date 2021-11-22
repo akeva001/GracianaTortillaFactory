@@ -118,7 +118,7 @@ class SelectTableComponent extends React.Component {
   }
 
   onMasterCheckClear(e) {
-    let tempList = Items;
+    let tempList = this.state.List;
     // // Check/ UnCheck All Items
     tempList.map((user) => (user.selected = false));
 
