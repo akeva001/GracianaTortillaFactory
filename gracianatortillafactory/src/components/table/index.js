@@ -6,8 +6,9 @@ import Menu from "../menu";
 import Select from "react-select";
 import Button from "../../components/button";
 import ReactToPrint from "react-to-print";
-import { Data } from "../toJSON/Data";
+import Converter from "../toJSON";
 import * as XLSX from "xlsx";
+import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
 
 const options = [
   { value: "Corn", label: "Corn" },
@@ -79,16 +80,22 @@ class SelectTableComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      List: Items,
+      List: [{ Code: null, Description: null, Source: null, selected: false }],
       MasterChecked: false,
       SelectedList: [],
       shifts: "1",
-      filteredList: Items,
+      filteredList: [
+        { Code: null, Description: null, Source: null, selected: false },
+      ],
       tortilla: null,
       select: {
         value: options[0], // "One" as initial value for react-select
         options, // all available options
       },
+      initialData: undefined,
+      currentSheet: [
+        { Code: null, Description: null, Source: null, selected: false },
+      ],
     };
 
     this.filterList = this.filterList.bind(this);
@@ -109,12 +116,7 @@ class SelectTableComponent extends React.Component {
       SelectedList: this.state.List.filter((e) => e.selected),
     });
   }
-  onCodeCheck(e) {
-    this.setState({
-      filteredList: this.state.List.filter((e) => e.code(e)),
-    });
-    //console.log(this.state.filteredList);
-  }
+
   onMasterCheckClear(e) {
     let tempList = Items;
     // // Check/ UnCheck All Items
@@ -127,18 +129,12 @@ class SelectTableComponent extends React.Component {
       SelectedList: [],
     });
   }
-  onCodeCheck(e) {
-    this.setState({
-      filteredList: this.state.List.filter((e) => e.code(e)),
-    });
-    //console.log(this.state.filteredList);
-  }
 
   // Update List Item's state and Master Checkbox State
   onItemCheck(e, item) {
     let tempList = this.state.List;
     tempList.map((user) => {
-      if (user.id === item.id) {
+      if (user.Code === item.Code) {
         user.selected = e.target.checked;
       }
       return user;
@@ -164,7 +160,7 @@ class SelectTableComponent extends React.Component {
       tortilla: q,
     });
     list = list.filter(function (item) {
-      return item.description.toLowerCase().indexOf(q) != -1; // returns true or false
+      return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
     });
     this.setState({ filteredList: list });
     console.log(this.state.tortilla);
@@ -185,8 +181,10 @@ class SelectTableComponent extends React.Component {
     let q = this.state.q;
 
     list = list.filter(function (item) {
-      return item.code.toLowerCase().indexOf(q) != -1; // returns true or false
+      return item.Code.toString().indexOf(q) != -1; // returns true or false
+      console.log(item.Code.toLowerCas);
     });
+
     this.setState({ filteredList: list });
   }
   handleClear() {
@@ -214,10 +212,59 @@ class SelectTableComponent extends React.Component {
     this.setValue(null); // here we reset value
   };
 
+  handleUpload = (event) => {
+    const file = event.target.files[0];
+
+    //read excel file
+    readFile(file)
+      .then((readedData) => this.setState({ initialData: readedData }))
+
+      .catch((error) => console.error(error));
+
+    console.log(this.state.initialData);
+    console.log(file);
+    const result = generateObjects(this.state.currentSheet);
+    this.setState({ filteredList: result, List: result });
+  };
+  display = () => {
+    const result = generateObjects(this.state.currentSheet);
+    this.setState({ filteredList: result, List: result });
+    console.log(result);
+  };
+
   render() {
     return (
       <div className="tableWrapper">
         <div className="row" style={{ margin: "10px", maxWidth: "1200px" }}>
+          <div
+            style={{
+              height: "60px",
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <input
+              type="file"
+              accept=".xlsx"
+              onChange={this.handleUpload}
+              style={{ borderRadius: "10px", paddingTop: "20px" }}
+            />
+            <div style={{ height: "0px", overflow: "hidden", width: "0px" }}>
+              {" "}
+              <ReactExcel
+                initialData={this.state.initialData}
+                onSheetUpdate={(currentSheet) =>
+                  this.setState({ currentSheet: currentSheet })
+                }
+                activeSheetClassName="active-sheet"
+                reactExcelClassName="react-excel"
+              />
+            </div>
+            <div onClick={this.display}>
+              <Button text={"Generate"} />
+            </div>
+          </div>
           <div
             style={{
               zIndex: "2",
@@ -356,9 +403,9 @@ class SelectTableComponent extends React.Component {
                           onChange={(e) => this.onItemCheck(e, user)}
                         />
                       </th>
-                      <td style={{ color: "black" }}>{user.code}</td>
-                      <td style={{ color: "black" }}>{user.description}</td>
-                      <td style={{ color: "black" }}>{user.source}</td>
+                      <td style={{ color: "black" }}>{user.Code}</td>
+                      <td style={{ color: "black" }}>{user.Description}</td>
+                      <td style={{ color: "black" }}>{user.Source}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -430,11 +477,11 @@ class SelectTableComponent extends React.Component {
                         className={user.selected ? "selected" : ""}
                       >
                         <th scope="row">
-                          <td style={{ color: "black" }}>{user.code}</td>
+                          <td style={{ color: "black" }}>{user.Code}</td>
                         </th>
 
-                        <td style={{ color: "black" }}>{user.description}</td>
-                        <td style={{ color: "black" }}>{user.source}</td>
+                        <td style={{ color: "black" }}>{user.Description}</td>
+                        <td style={{ color: "black" }}>{user.Source}</td>
                         <td></td>
                         <td></td>
                       </tr>
@@ -471,14 +518,14 @@ class SelectTableComponent extends React.Component {
                           className={user.selected ? "selected" : ""}
                         >
                           <th scope="row">
-                            <td style={{ color: "black" }}>{user.code}</td>
+                            <td style={{ color: "black" }}>{user.Code}</td>
                           </th>
 
-                          <td style={{ color: "black" }}>{user.description}</td>
-                          <td style={{ color: "black" }}>{user.source}</td>
+                          <td style={{ color: "black" }}>{user.Description}</td>
+                          <td style={{ color: "black" }}>{user.Source}</td>
                           <td></td>
                           <td></td>
-                          <td style={{ color: "black" }}>{user.source}</td>
+                          <td style={{ color: "black" }}>{user.Source}</td>
                           <td></td>
                           <td></td>
                         </tr>
