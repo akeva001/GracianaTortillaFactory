@@ -84,9 +84,7 @@ class SelectTableComponent extends React.Component {
       MasterChecked: false,
       SelectedList: [],
       shifts: "1",
-      filteredList: [
-        { Code: null, Description: null, Source: null, selected: false },
-      ],
+      filteredList: [],
       tortilla: null,
       select: {
         value: options[0], // "One" as initial value for react-select
@@ -367,7 +365,7 @@ class SelectTableComponent extends React.Component {
               style={{
                 backgroundColor: "white",
                 borderRadius: "10px",
-                overflow: "hidden",
+                overflow: "scroll",
                 maxHeight: "290px",
               }}
             >
@@ -425,7 +423,7 @@ class SelectTableComponent extends React.Component {
                 style={{
                   padding: "10px",
                   cursor: "pointer",
-                  color: this.state.shifts === "1" ? "white" : "black",
+                  color: this.state.shifts === "1" ? "white" : "#C0C0C0",
                   fontSize: "25px",
                 }}
               >
@@ -443,7 +441,7 @@ class SelectTableComponent extends React.Component {
                 style={{
                   padding: "10px",
                   cursor: "pointer",
-                  color: this.state.shifts === "2" ? "white" : "black",
+                  color: this.state.shifts === "2" ? "white" : "#C0C0C0",
                   fontSize: "25px",
                 }}
               >
