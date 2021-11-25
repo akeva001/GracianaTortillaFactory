@@ -2,6 +2,8 @@
   text-align: center;
   background-color: #777;
   padding-bottom: 100px;
+  position: relative;
+  width: 100%;
 }
 
 @media print {
@@ -47,42 +49,40 @@ html {
     transform: rotate(360deg);
   }
 }
-* {
-  /* overflow-x: hidden; */
-}
-/* input[type="file"] {
+
+.inputfile {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
   position: absolute;
   z-index: -1;
-} */
-
-.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  padding-right: 10px;
 }
-
-.btn {
-  border: 2px solid gray;
-  color: gray;
+.inputfile + label {
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
   background-color: white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 20px;
-  font-weight: bold;
+  display: inline-block;
+  height: 38px;
 }
 
-.upload-btn-wrapper input[type="file"] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
+.inputfile:focus + label,
+/* .inputfile + label:hover {
+  background-color: red;
+} */
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
+  border-radius: 4px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
+/* .inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+} */
 .dropdownWrapper {
   display: flex;
   flex-direction: row;

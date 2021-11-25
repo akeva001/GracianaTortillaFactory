@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import Form from "../form";
@@ -238,17 +238,13 @@ class SelectTableComponent extends React.Component {
 
   handleUpload = (event) => {
     const file = event.target.files[0];
-
     //read excel file
     readFile(file)
       .then((readedData) => this.setState({ initialData: readedData }))
-
       .catch((error) => console.error(error));
 
     console.log(this.state.initialData);
     console.log(file);
-    const result = generateObjects(this.state.currentSheet);
-    this.setState({ filteredList: result, List: result });
   };
   display = () => {
     const result = generateObjects(this.state.currentSheet);
@@ -268,14 +264,18 @@ class SelectTableComponent extends React.Component {
               justifyContent: "center",
             }}
           >
-            <div className="upload-btn-wrapper">
-              <Button text="Upload" className="btn" />
+            <div style={{ paddingTop: "16px" }}>
+              {/* <Button text="Upload" className="btn" /> */}
+
               <input
                 type="file"
+                name="file"
                 accept=".xlsx"
                 onChange={this.handleUpload}
-                style={{ borderRadius: "10px", paddingTop: "20px" }}
+                class="inputfile"
+                id="file"
               />
+              <label for="file">Choose a file</label>
             </div>
 
             <div style={{ height: "0px", overflow: "hidden", width: "0px" }}>
@@ -591,5 +591,8 @@ class SelectTableComponent extends React.Component {
     );
   }
 }
-
+const inputFile = {
+  margin: "40px",
+  border: "5px solid pink",
+};
 export default SelectTableComponent;
