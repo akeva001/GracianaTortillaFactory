@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
+import { generateObjects, ReactExcel, readFile } from "@ramonak/react-excel";
+import React from "react";
 import { Table } from "react-bootstrap";
-import BootstrapTable from "react-bootstrap-table-next";
-import Form from "../form";
-import Menu from "../menu";
 import Select from "react-select";
-import Button from "../../components/button";
 import ReactToPrint from "react-to-print";
-import Converter from "../toJSON";
-import * as XLSX from "xlsx";
-import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
-import { thisExpression } from "@babel/types";
+import Button from "../../components/button";
 
 const options = [
   { value: "Corn", label: "Corn" },
@@ -123,9 +117,9 @@ class SelectTableComponent extends React.Component {
     const q = e.label.toLowerCase();
     this.setTortilla(e);
 
-    if (this.state.initialData != undefined) {
+    if (this.state.initialData !== undefined) {
       list = list.filter(function (item) {
-        return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
+        return item.Description.toLowerCase().toString().indexOf(q) !== -1; // returns true or false
       });
     } else {
       return;
@@ -139,9 +133,9 @@ class SelectTableComponent extends React.Component {
     const q = e.label.toLowerCase();
     this.setColor(e);
 
-    if (this.state.initialData != undefined) {
+    if (this.state.initialData !== undefined) {
       list = list.filter(function (item) {
-        return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
+        return item.Description.toLowerCase().toString().indexOf(q) !== -1; // returns true or false
       });
     } else {
       return;
@@ -154,9 +148,9 @@ class SelectTableComponent extends React.Component {
     const q = e.label.toLowerCase();
     this.setSize(e);
 
-    if (this.state.initialData != undefined) {
+    if (this.state.initialData !== undefined) {
       list = list.filter(function (item) {
-        return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
+        return item.Description.toLowerCase().toString().indexOf(q) !== -1; // returns true or false
       });
     } else {
       return;
@@ -178,9 +172,9 @@ class SelectTableComponent extends React.Component {
   filterList() {
     let list = this.state.List;
     let q = this.state.q;
-    if (this.state.initialData != undefined) {
+    if (this.state.initialData !== undefined) {
       list = list.filter(function (item) {
-        return item.Code.toString().indexOf(q) != -1; // returns true or false
+        return item.Code.toString().indexOf(q) !== -1; // returns true or false
         console.log(item.Code.toLowerCas);
       });
     } else {

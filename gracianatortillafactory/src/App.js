@@ -1,18 +1,6 @@
-import "./App.css";
-import Menu from "../src/components/menu";
 import Table from "../src/components/table";
-import Form from "../src/components/form";
-import PrintTable from "../src/components/printTable";
+import "./App.css";
 
-const options = [
-  { value: "Corn", label: "Corn" },
-  { value: "Flour", label: "Flour" },
-  { value: "Chip", label: "Chip" },
-];
-const options1 = [
-  { value: "Color", label: "Color" },
-  { value: "Size", label: "Size" },
-];
 const products = [
   { id: 0, description: "Item name 0", source: 2100 },
   { id: 1, description: "Item name 1", source: 2101 },
