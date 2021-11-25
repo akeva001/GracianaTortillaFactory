@@ -52,12 +52,15 @@
       "buildResources": "public/electron.js"
     },
     "mac": {
+      "icon": "build/logo.icns",
       "target": "dmg"
     },
     "win": {
+      "icon": "build/logo.ico",
       "target": "@testing-library/jest-dom"
     },
     "linux": {
+      "icon": "build/icon.png",
       "target": "deb"
     }
   },
