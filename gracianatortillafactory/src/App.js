@@ -60,11 +60,11 @@ const App = () => {
     <div className="App">
       <div className="svg">
         <div className="img">
-          <img src={"/images/Blog2.png"} alt="Logo" height="500px" />
+          <img src={"./images/Blog2.png"} alt="Logo" height="500px" />
         </div>
       </div>
       <div className="logo">
-        <img src={"/images/logo.png"} alt="Logo" height="200px" />
+        <img src={"./images/logo.png"} alt="Logo" height="200px" />
       </div>
 
       <div className="tableWrapper">

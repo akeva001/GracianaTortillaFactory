@@ -9,6 +9,7 @@ import ReactToPrint from "react-to-print";
 import Converter from "../toJSON";
 import * as XLSX from "xlsx";
 import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
+import { thisExpression } from "@babel/types";
 
 const options = [
   { value: "Corn", label: "Corn" },
@@ -27,68 +28,30 @@ const sizes = [
   { value: '5"', label: '5"' },
   { value: '6"', label: '6"' },
 ];
-const options1 = [
-  { value: "Color", label: "Color" },
-  { value: "Size", label: "Size" },
-];
-const Items = [
-  {
-    id: 1,
-    selected: false,
-    code: "1000",
-    description: '4" MINI RED CORN TORTILLA 5 DZ. 30',
-    source: "BAT REG 4 | 5",
-  },
-  {
-    id: 2,
-    selected: false,
-    code: "1005",
-    description: '5" 1/4 MINI CORN TORTILLA 5 DZ. 37',
-    source: "BAT REG 4 | 5",
-  },
-  {
-    id: 3,
-    selected: false,
-    code: "1010",
-    description: '4" 1/4 MINI CORN TORTILLA 5 DZ. 37',
-    source: "BAT REG 4 | 5",
-  },
-  {
-    id: 4,
-    selected: false,
-    code: "1080",
-    description: '6" MINI CORN TORTILLA 5 DZ. 30',
-    source: "BAT REG 4 | 5",
-  },
-  {
-    id: 5,
-    selected: false,
-    code: "1040",
-    description: '5" 1/4 MINI FLOUR TORTILLA 5 DZ. 37',
-    source: "BAT REG 4 | 5",
-  },
-  {
-    id: 6,
-    selected: false,
-    code: "1020",
-    description: '4" 1/4 MINI CHIP TORTILLA 5 DZ. 37',
-    source: "BAT REG 4 | 5",
-  },
-];
 
 class SelectTableComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      List: [{ Code: null, Description: null, Source: null, selected: false }],
+      List: [],
       MasterChecked: false,
       SelectedList: [],
       shifts: "1",
       filteredList: [],
-      tortilla: null,
-      select: {
-        value: options[0], // "One" as initial value for react-select
+      code: {
+        value: "", // all available options
+      },
+      tortilla: {
+        value: options[""], // "One" as initial value for react-select
         options, // all available options
+      },
+      color: {
+        value: colors[""], // "One" as initial value for react-select
+        colors, // all available options
+      },
+      size: {
+        value: sizes[""], // "One" as initial value for react-select
+        sizes, // all available options
       },
       initialData: undefined,
       currentSheet: [
@@ -99,8 +62,13 @@ class SelectTableComponent extends React.Component {
     this.filterList = this.filterList.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onTortillaClick = this.onTortillaClick.bind(this);
+    this.onColorClick = this.onColorClick.bind(this);
+    this.onSizeClick = this.onSizeClick.bind(this);
   }
-
+  componentWillUnmount() {
+    localStorage.setItem("filteredList", this.state.filteredList);
+    //this.setState({ selectedOption: option });
+  }
   // Select/ UnSelect Table rows
   onMasterCheck(e) {
     let tempList = this.state.List;
@@ -154,14 +122,47 @@ class SelectTableComponent extends React.Component {
     // Update State
     let list = this.state.List;
     const q = e.label.toLowerCase();
-    this.setState({
-      tortilla: q,
-    });
-    list = list.filter(function (item) {
-      return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
-    });
+    this.setTortilla(e);
+
+    if (this.state.initialData != undefined) {
+      list = list.filter(function (item) {
+        return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
+      });
+    } else {
+      return;
+    }
     this.setState({ filteredList: list });
     console.log(this.state.tortilla);
+  }
+  onColorClick(e) {
+    // Update State
+    let list = this.state.List;
+    const q = e.label.toLowerCase();
+    this.setColor(e);
+
+    if (this.state.initialData != undefined) {
+      list = list.filter(function (item) {
+        return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
+      });
+    } else {
+      return;
+    }
+    this.setState({ filteredList: list });
+  }
+  onSizeClick(e) {
+    // Update State
+    let list = this.state.List;
+    const q = e.label.toLowerCase();
+    this.setSize(e);
+
+    if (this.state.initialData != undefined) {
+      list = list.filter(function (item) {
+        return item.Description.toLowerCase().toString().indexOf(q) != -1; // returns true or false
+      });
+    } else {
+      return;
+    }
+    this.setState({ filteredList: list });
   }
   // Event to get selected rows(Optional)
   getSelectedRows() {
@@ -173,17 +174,22 @@ class SelectTableComponent extends React.Component {
   onChange(event) {
     const q = event.target.value.toLowerCase();
     this.setState({ q }, () => this.filterList());
+    this.setCode(event);
   }
   filterList() {
     let list = this.state.List;
     let q = this.state.q;
-
-    list = list.filter(function (item) {
-      return item.Code.toString().indexOf(q) != -1; // returns true or false
-      console.log(item.Code.toLowerCas);
-    });
+    if (this.state.initialData != undefined) {
+      list = list.filter(function (item) {
+        return item.Code.toString().indexOf(q) != -1; // returns true or false
+        console.log(item.Code.toLowerCas);
+      });
+    } else {
+      return;
+    }
 
     this.setState({ filteredList: list });
+    console.log(this.state.filteredList);
   }
   handleClear() {
     let tempList = this.state.List;
@@ -192,22 +198,42 @@ class SelectTableComponent extends React.Component {
   }
   handleClear2() {
     this.setState({ filteredList: this.state.List });
+    this.state.tortilla.value = "";
+    this.state.color.value = "";
+    this.state.size.value = "";
+    this.state.code.value = "";
   }
-  setValue = (value) => {
+  setTortilla = (value) => {
     this.setState((prevState) => ({
-      select: {
-        ...prevState.select,
+      tortilla: {
+        ...prevState.tortilla,
         value,
       },
     }));
   };
-
-  handleChange = (value) => {
-    this.setValue(value);
+  setColor = (value) => {
+    this.setState((prevState) => ({
+      color: {
+        ...prevState.color,
+        value,
+      },
+    }));
   };
-
-  handleClick = () => {
-    this.setValue(null); // here we reset value
+  setSize = (value) => {
+    this.setState((prevState) => ({
+      size: {
+        ...prevState.size,
+        value,
+      },
+    }));
+  };
+  setCode = (value) => {
+    this.setState((prevState) => ({
+      code: {
+        ...prevState.code,
+        value,
+      },
+    }));
   };
 
   handleUpload = (event) => {
@@ -279,6 +305,7 @@ class SelectTableComponent extends React.Component {
                     paddingLeft: "15px",
                   }}
                   onChange={this.onChange}
+                  ref={(el) => (this.state.code = el)}
                 />
               </div>
               <div className="dropdown">
@@ -295,7 +322,7 @@ class SelectTableComponent extends React.Component {
                     multi={true}
                     onChange={this.onTortillaClick}
                     //onBlur={this.handleBlur}
-                    value={this.props.value}
+                    value={this.state.tortilla.value}
                   />
                   {!!this.props.error && this.props.touched && (
                     <div style={{ color: "red", marginTop: ".5rem" }}>
@@ -316,9 +343,9 @@ class SelectTableComponent extends React.Component {
                     id="color"
                     options={colors}
                     multi={true}
-                    onChange={this.onTortillaClick}
+                    onChange={this.onColorClick}
                     //onBlur={this.handleBlur}
-                    value={this.props.value}
+                    value={this.state.color.value}
                   />
                   {!!this.props.error && this.props.touched && (
                     <div style={{ color: "red", marginTop: ".5rem" }}>
@@ -339,9 +366,9 @@ class SelectTableComponent extends React.Component {
                     id="color"
                     options={sizes}
                     multi={true}
-                    onChange={this.onTortillaClick}
+                    onChange={this.onSizeClick}
                     //onBlur={this.handleBlur}
-                    value={this.props.value}
+                    value={this.state.size.value}
                   />
                   {!!this.props.error && this.props.touched && (
                     <div style={{ color: "red", marginTop: ".5rem" }}>
@@ -355,7 +382,7 @@ class SelectTableComponent extends React.Component {
                 className="clearButton"
                 onClick={() => {
                   this.handleClear2();
-                  this.handleClick();
+                  // this.handleClick();
                 }}
               >
                 <Button text={"Clear"} />
@@ -498,7 +525,7 @@ class SelectTableComponent extends React.Component {
                 >
                   <Table striped bordered hover responsive="md">
                     <thead>
-                      <tr>
+                      <tr style={{ display: "flex", justifyContent: "center" }}>
                         <th scope="col">ITEM CODE</th>
                         <th scope="col">ITEM DESCRIPTION</th>
                         <th scope="col">SOURCE</th>

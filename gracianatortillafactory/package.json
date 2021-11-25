@@ -1,7 +1,10 @@
 {
   "name": "gracianatortillafactory",
+  "productName": "Graciana Tortilla Factory",
   "version": "0.1.0",
   "private": true,
+  "author": "Alex Kevakian",
+  "description": "Graciana Tortilla Factory",
   "dependencies": {
     "@ramonak/react-excel": "^1.0.1",
     "@testing-library/jest-dom": "^5.11.4",
@@ -25,14 +28,38 @@
     "xlsx": "^0.17.4"
   },
   "GTF": "GTF",
-  "main": "public/electron/main.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
-    "electron": "wait-on tcp:3000 && electron ."
+    "electron": "wait-on tcp:3000 && electron .",
+    "electron:package:mac": "npm run-script build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "electron:package:win": "npm build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "electron:package:linux": "npm build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+  },
+  "build": {
+    "appId": "com.electron.gracianatortillafactory",
+    "productName": "Graciana Tortilla Factory",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public/electron.js"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "@testing-library/jest-dom"
+    },
+    "linux": {
+      "target": "deb"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -54,9 +81,12 @@
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
-    "electron": "^15.3.1",
+    "cross-env": "^7.0.3",
+    "electron": "^15.3.2",
+    "electron-builder": "^22.14.5",
     "electron-is-dev": "^2.0.0",
     "electron-packager": "^15.4.0",
+    "electronmon": "^2.0.2",
     "wait-on": "^6.0.0"
   }
 }
