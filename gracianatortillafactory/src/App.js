@@ -60,6 +60,11 @@ const App = () => {
           <Table products={products} columns={columns1} columns1={columns} />
         </div>
       </div>
+      <div className="svgbottom">
+        <div className="img" style={{ transform: "rotate(180deg)" }}>
+          <img src={"./images/Blog2.png"} alt="Logo" height="500px" />
+        </div>
+      </div>
     </div>
   );
 };
