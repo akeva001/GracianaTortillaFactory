@@ -231,7 +231,7 @@ class SelectTableComponent extends React.Component {
 
   handleUpload = (event) => {
     const file = event.target.files[0];
-
+    this.onMasterCheckClear();
     //read excel file
     readFile(file)
       .then((readedData) => {
