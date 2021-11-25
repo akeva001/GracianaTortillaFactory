@@ -58,7 +58,7 @@ class SelectTableComponent extends React.Component {
         { Code: null, Description: null, Source: null, selected: false },
       ],
     };
-    this.button = React.createRef();
+    this.button = React.createRef(null);
     this.filterList = this.filterList.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onTortillaClick = this.onTortillaClick.bind(this);
@@ -300,7 +300,12 @@ class SelectTableComponent extends React.Component {
             </div>
             <div
               onClick={this.display}
-              style={{ paddingLeft: "10px" }}
+              style={{
+                paddingLeft: "10px",
+                height: ".01px",
+                width: ".01px",
+                opacity: "0",
+              }}
               ref={this.button}
             >
               <Button text={"Generate"} />
