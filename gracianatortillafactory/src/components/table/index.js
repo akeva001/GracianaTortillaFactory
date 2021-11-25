@@ -38,19 +38,20 @@ class SelectTableComponent extends React.Component {
       SelectedList: [],
       shifts: "1",
       filteredList: [],
+      fileLabel: "Choose a file",
       code: {
         value: "", // all available options
       },
       tortilla: {
-        value: options[""], // "One" as initial value for react-select
+        value: options[""], // "" as initial value for react-select
         options, // all available options
       },
       color: {
-        value: colors[""], // "One" as initial value for react-select
+        value: colors[""], // "" as initial value for react-select
         colors, // all available options
       },
       size: {
-        value: sizes[""], // "One" as initial value for react-select
+        value: sizes[""], // "" as initial value for react-select
         sizes, // all available options
       },
       initialData: undefined,
@@ -67,9 +68,7 @@ class SelectTableComponent extends React.Component {
   }
   componentWillUnmount() {
     localStorage.setItem("filteredList", this.state.filteredList);
-    //this.setState({ selectedOption: option });
   }
-  // Select/ UnSelect Table rows
   onMasterCheck(e) {
     let tempList = this.state.List;
     // Check/ UnCheck All Items
@@ -244,6 +243,7 @@ class SelectTableComponent extends React.Component {
       .then((readedData) => {
         this.setState({
           initialData: readedData,
+          fileLabel: file.name,
         });
         this.button.current.click();
       })
@@ -272,17 +272,15 @@ class SelectTableComponent extends React.Component {
             }}
           >
             <div style={{ paddingTop: "16px" }}>
-              {/* <Button text="Upload" className="btn" /> */}
-
               <input
                 type="file"
                 name="file"
                 accept=".xlsx"
                 onChange={this.handleUpload}
-                class="inputfile"
+                className="inputfile"
                 id="file"
               />
-              <label for="file">Choose a file</label>
+              <label htmlFor="file">{this.state.fileLabel}</label>
             </div>
 
             <div style={{ height: "0px", overflow: "hidden", width: "0px" }}>
@@ -301,7 +299,6 @@ class SelectTableComponent extends React.Component {
             <div
               onClick={this.display}
               style={{
-                paddingLeft: "10px",
                 height: ".01px",
                 width: ".01px",
                 opacity: "0",
@@ -343,7 +340,6 @@ class SelectTableComponent extends React.Component {
                     options={options}
                     multi={true}
                     onChange={this.onTortillaClick}
-                    //onBlur={this.handleBlur}
                     value={this.state.tortilla.value}
                   />
                   {!!this.props.error && this.props.touched && (
@@ -366,7 +362,6 @@ class SelectTableComponent extends React.Component {
                     options={colors}
                     multi={true}
                     onChange={this.onColorClick}
-                    //onBlur={this.handleBlur}
                     value={this.state.color.value}
                   />
                   {!!this.props.error && this.props.touched && (
@@ -389,7 +384,6 @@ class SelectTableComponent extends React.Component {
                     options={sizes}
                     multi={true}
                     onChange={this.onSizeClick}
-                    //onBlur={this.handleBlur}
                     value={this.state.size.value}
                   />
                   {!!this.props.error && this.props.touched && (
@@ -404,7 +398,6 @@ class SelectTableComponent extends React.Component {
                 className="clearButton"
                 onClick={() => {
                   this.handleClear2();
-                  // this.handleClick();
                 }}
               >
                 <Button text={"Clear"} />
@@ -592,8 +585,6 @@ class SelectTableComponent extends React.Component {
                 documentTitle="Inventory"
                 copyStyles
                 trigger={() => {
-                  // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
-                  // to the root node of the returned component as it will be overwritten.
                   return (
                     <a href="#">
                       <Button text={"Print"} />{" "}
