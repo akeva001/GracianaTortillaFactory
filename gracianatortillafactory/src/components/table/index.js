@@ -265,55 +265,59 @@ class SelectTableComponent extends React.Component {
         <div className="row" style={{ margin: "10px", maxWidth: "1200px" }}>
           <div
             style={{
-              height: "60px",
-              overflow: "hidden",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <div style={{ paddingTop: "16px" }}>
-              <input
-                type="file"
-                name="file"
-                accept=".xlsx"
-                onChange={this.handleUpload}
-                className="inputfile"
-                id="file"
-              />
-              <label htmlFor="file">{this.state.fileLabel}</label>
-            </div>
-
-            <div style={{ height: "0px", overflow: "hidden", width: "0px" }}>
-              {" "}
-              <ReactExcel
-                initialData={this.state.initialData}
-                onSheetUpdate={(currentSheet) => {
-                  this.setState({
-                    currentSheet: currentSheet,
-                  });
-                }}
-                activeSheetClassName="active-sheet"
-                reactExcelClassName="react-excel"
-              />
-            </div>
-            <div
-              onClick={this.display}
-              style={{
-                height: ".01px",
-                width: ".01px",
-                opacity: "0",
-              }}
-              ref={this.button}
-            >
-              <Button text={"Generate"} />
-            </div>
-          </div>
-          <div
-            style={{
               zIndex: "2",
             }}
           >
             <div className="dropdownWrapper">
+              <div
+                style={{
+                  height: "60px",
+                  overflow: "hidden",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "49px",
+                  marginRight: "20px",
+                }}
+              >
+                <div style={{ paddingTop: "16px" }}>
+                  <input
+                    type="file"
+                    name="file"
+                    accept=".xlsx"
+                    onChange={this.handleUpload}
+                    className="inputfile"
+                    id="file"
+                  />
+                  <label htmlFor="file">{this.state.fileLabel}</label>
+                </div>
+
+                <div
+                  style={{ height: "0px", overflow: "hidden", width: "0px" }}
+                >
+                  {" "}
+                  <ReactExcel
+                    initialData={this.state.initialData}
+                    onSheetUpdate={(currentSheet) => {
+                      this.setState({
+                        currentSheet: currentSheet,
+                      });
+                    }}
+                    activeSheetClassName="active-sheet"
+                    reactExcelClassName="react-excel"
+                  />
+                </div>
+                <div
+                  onClick={this.display}
+                  style={{
+                    height: ".01px",
+                    width: ".01px",
+                    opacity: "0",
+                  }}
+                  ref={this.button}
+                >
+                  <Button text={"Generate"} />
+                </div>
+              </div>
               <div className="form">
                 <input
                   placeholder={"Code"}
@@ -408,7 +412,7 @@ class SelectTableComponent extends React.Component {
                 backgroundColor: "white",
                 borderRadius: "10px",
                 overflow: "scroll",
-                maxHeight: "290px",
+                maxHeight: "500px",
               }}
             >
               <Table striped bordered hover responsive="md">
