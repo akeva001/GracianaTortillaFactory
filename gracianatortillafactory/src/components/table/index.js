@@ -525,7 +525,7 @@ class SelectTableComponent extends React.Component {
                 >
                   <Table striped bordered hover responsive="md">
                     <thead>
-                      <tr style={{ display: "flex", justifyContent: "center" }}>
+                      <tr>
                         <th scope="col">ITEM CODE</th>
                         <th scope="col">ITEM DESCRIPTION</th>
                         <th scope="col">SOURCE</th>
