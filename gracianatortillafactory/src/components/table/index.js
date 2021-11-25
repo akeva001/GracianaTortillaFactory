@@ -58,7 +58,7 @@ class SelectTableComponent extends React.Component {
         { Code: null, Description: null, Source: null, selected: false },
       ],
     };
-
+    this.button = React.createRef();
     this.filterList = this.filterList.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onTortillaClick = this.onTortillaClick.bind(this);
@@ -238,9 +238,15 @@ class SelectTableComponent extends React.Component {
 
   handleUpload = (event) => {
     const file = event.target.files[0];
+
     //read excel file
     readFile(file)
-      .then((readedData) => this.setState({ initialData: readedData }))
+      .then((readedData) => {
+        this.setState({
+          initialData: readedData,
+        });
+        this.button.current.click();
+      })
       .catch((error) => console.error(error));
 
     console.log(this.state.initialData);
@@ -250,6 +256,7 @@ class SelectTableComponent extends React.Component {
     const result = generateObjects(this.state.currentSheet);
     this.setState({ filteredList: result, List: result });
     console.log(result);
+    console.log(this.state.currentSheet);
   };
 
   render() {
@@ -282,14 +289,20 @@ class SelectTableComponent extends React.Component {
               {" "}
               <ReactExcel
                 initialData={this.state.initialData}
-                onSheetUpdate={(currentSheet) =>
-                  this.setState({ currentSheet: currentSheet })
-                }
+                onSheetUpdate={(currentSheet) => {
+                  this.setState({
+                    currentSheet: currentSheet,
+                  });
+                }}
                 activeSheetClassName="active-sheet"
                 reactExcelClassName="react-excel"
               />
             </div>
-            <div onClick={this.display} style={{ paddingLeft: "10px" }}>
+            <div
+              onClick={this.display}
+              style={{ paddingLeft: "10px" }}
+              ref={this.button}
+            >
               <Button text={"Generate"} />
             </div>
           </div>
