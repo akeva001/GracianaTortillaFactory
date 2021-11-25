@@ -268,12 +268,16 @@ class SelectTableComponent extends React.Component {
               justifyContent: "center",
             }}
           >
-            <input
-              type="file"
-              accept=".xlsx"
-              onChange={this.handleUpload}
-              style={{ borderRadius: "10px", paddingTop: "20px" }}
-            />
+            <div className="upload-btn-wrapper">
+              <Button text="Upload" className="btn" />
+              <input
+                type="file"
+                accept=".xlsx"
+                onChange={this.handleUpload}
+                style={{ borderRadius: "10px", paddingTop: "20px" }}
+              />
+            </div>
+
             <div style={{ height: "0px", overflow: "hidden", width: "0px" }}>
               {" "}
               <ReactExcel
@@ -285,7 +289,7 @@ class SelectTableComponent extends React.Component {
                 reactExcelClassName="react-excel"
               />
             </div>
-            <div onClick={this.display}>
+            <div onClick={this.display} style={{ paddingLeft: "10px" }}>
               <Button text={"Generate"} />
             </div>
           </div>
