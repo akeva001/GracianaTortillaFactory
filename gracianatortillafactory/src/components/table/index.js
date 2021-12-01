@@ -405,7 +405,7 @@ class SelectTableComponent extends React.Component {
               style={{
                 backgroundColor: "white",
                 borderRadius: "10px",
-                overflow: "scroll",
+                overflowY: "scroll",
                 maxHeight: "500px",
               }}
             >
@@ -577,6 +577,9 @@ class SelectTableComponent extends React.Component {
           <div className="buttonWrapper">
             <div className="button" onClick={(e) => this.onMasterCheckClear(e)}>
               <Button text={"Clear"} />
+            </div>
+            <div className="button">
+              <Button text={"Save"} />
             </div>
             <div className="button">
               <ReactToPrint

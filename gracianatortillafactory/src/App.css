@@ -6,6 +6,9 @@
   width: 100%;
   min-height: 100vh;
 }
+.App::-webkit-scrollbar {
+  display: none;
+}
 
 @media print {
   td {
