@@ -532,7 +532,7 @@ class SelectTableComponent extends React.Component {
                       <th scope="col">NUMBER OF TORTILLAS MADE PER PACK</th>
                     </tr>
                   </thead>
-                  <tbody style={{ color: "white" }}>
+                  <tbody>
                     {this.state.SelectedList.map((user) => (
                       <tr
                         key={user.id}
@@ -646,8 +646,5 @@ class SelectTableComponent extends React.Component {
     );
   }
 }
-const inputFile = {
-  margin: "40px",
-  border: "5px solid pink",
-};
+
 export default SelectTableComponent;
