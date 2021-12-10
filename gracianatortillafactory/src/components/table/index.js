@@ -269,7 +269,7 @@ class SelectTableComponent extends React.Component {
               zIndex: "2",
             }}
           >
-            <div className="dropdownWrapper">
+            <div className="dropdownWrapper" style={{ margin: "10px" }}>
               <div
                 style={{
                   height: "60px",
@@ -289,7 +289,9 @@ class SelectTableComponent extends React.Component {
                     className="inputfile"
                     id="file"
                   />
-                  <label htmlFor="file">{this.state.fileLabel}</label>
+                  <label htmlFor="file" style={{ minWidth: "120px" }}>
+                    {this.state.fileLabel}
+                  </label>
                 </div>
 
                 <div
@@ -414,6 +416,7 @@ class SelectTableComponent extends React.Component {
                 borderRadius: "10px",
                 overflowY: "scroll",
                 maxHeight: "500px",
+                margin: "10px",
               }}
             >
               <Table striped bordered hover responsive="md">
