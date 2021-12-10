@@ -88,14 +88,21 @@ class SelectTableComponent extends React.Component {
       SelectedList: [],
     });
   }
-
+  getIndex(email) {
+    return this.state.List.findIndex((obj) => obj.email === email);
+  }
   // Update List Item's state and Master Checkbox State
   onItemCheck(e, item) {
     let tempList = this.state.List;
-    tempList.map((user) => {
-      if (user.Code === item.Code) {
+    tempList.map((user, i) => {
+      console.log(user);
+      console.log(i);
+      console.log(item);
+      console.log(tempList.indexOf(user));
+      if (user === item) {
         user.selected = e.target.checked;
       }
+
       return user;
     });
 
@@ -442,7 +449,10 @@ class SelectTableComponent extends React.Component {
                           checked={user.selected}
                           className="form-check-input"
                           id="rowcheck{user.id}"
-                          onChange={(e) => this.onItemCheck(e, user)}
+                          onChange={(e) => {
+                            this.onItemCheck(e, user);
+                            console.log(user);
+                          }}
                         />
                       </th>
                       <td style={{ color: "black" }}>{user.Code}</td>
