@@ -410,7 +410,11 @@ class SelectTableComponent extends React.Component {
               }}
             >
               <Table striped bordered hover responsive="md">
-                <thead>
+                <thead
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
                   <tr>
                     <th scope="col">
                       <input
@@ -489,18 +493,28 @@ class SelectTableComponent extends React.Component {
               </p>
             </div>
           </div>
-          <div ref={(el) => (this.componentRef = el)}>
+          <div
+            ref={(el) => (this.componentRef = el)}
+            style={{
+              boxSizing: "border-box",
+            }}
+          >
             {this.state.shifts === "1" ? (
               <div
                 style={{
                   backgroundColor: "white",
                   borderRadius: "10px",
                   overflow: "hidden",
+                  margin: "10px",
                 }}
               >
                 <Table striped bordered hover responsive="md">
                   <thead>
-                    <tr>
+                    <tr
+                      style={{
+                        textAlign: "center",
+                      }}
+                    >
                       <th scope="col">ITEM CODE</th>
                       <th scope="col">ITEM DESCRIPTION</th>
                       <th scope="col">SOURCE</th>
@@ -515,7 +529,15 @@ class SelectTableComponent extends React.Component {
                         className={user.selected ? "selected" : ""}
                       >
                         <th scope="row">
-                          <td style={{ color: "black" }}>{user.Code}</td>
+                          <td
+                            style={{
+                              color: "black",
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {user.Code}
+                          </td>
                         </th>
 
                         <td style={{ color: "black" }}>{user.Description}</td>
@@ -534,10 +556,15 @@ class SelectTableComponent extends React.Component {
                     backgroundColor: "white",
                     borderRadius: "10px",
                     overflow: "hidden",
+                    margin: "10px",
                   }}
                 >
                   <Table striped bordered hover responsive="md">
-                    <thead>
+                    <thead
+                      style={{
+                        textAlign: "center",
+                      }}
+                    >
                       <tr>
                         <th scope="col">ITEM CODE</th>
                         <th scope="col">ITEM DESCRIPTION</th>
@@ -556,7 +583,15 @@ class SelectTableComponent extends React.Component {
                           className={user.selected ? "selected" : ""}
                         >
                           <th scope="row">
-                            <td style={{ color: "black" }}>{user.Code}</td>
+                            <td
+                              style={{
+                                color: "black",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {user.Code}
+                            </td>
                           </th>
 
                           <td style={{ color: "black" }}>{user.Description}</td>
