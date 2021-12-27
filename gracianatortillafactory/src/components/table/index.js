@@ -26,6 +26,13 @@ const sizes = [
 class SelectTableComponent extends React.Component {
   constructor(props) {
     super(props);
+    var today = new Date(),
+      date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
     this.state = {
       List: [],
       MasterChecked: false,
@@ -33,6 +40,8 @@ class SelectTableComponent extends React.Component {
       shifts: "1",
       filteredList: [],
       fileLabel: "Choose a file",
+      currentDateTime: date,
+      save: "",
       code: {
         value: "", // all available options
       },
@@ -56,9 +65,11 @@ class SelectTableComponent extends React.Component {
     this.button = React.createRef(null);
     this.filterList = this.filterList.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onChangeSave = this.onChangeSave.bind(this);
     this.onTortillaClick = this.onTortillaClick.bind(this);
     this.onColorClick = this.onColorClick.bind(this);
     this.onSizeClick = this.onSizeClick.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
   componentWillUnmount() {
     localStorage.setItem("filteredList", this.state.filteredList);
@@ -75,7 +86,17 @@ class SelectTableComponent extends React.Component {
       SelectedList: this.state.List.filter((e) => e.selected),
     });
   }
+  allStorage = () => {
+    var archive = [],
+      keys = Object.keys(localStorage),
+      i = 0,
+      key;
 
+    for (; (key = keys[i]); i++) {
+      archive.push(key + "=" + localStorage.getItem(key));
+    }
+    return archive;
+  };
   onMasterCheckClear(e) {
     let tempList = this.state.List;
     // // Check/ UnCheck All Items
@@ -176,6 +197,20 @@ class SelectTableComponent extends React.Component {
     this.setState({ q }, () => this.filterList());
     this.setCode(event);
   }
+  onChangeSave(event) {
+    const q = event.target.value;
+    this.state.save = q;
+    console.log(this.state.save);
+    console.log(this.state.code);
+    console.log(localStorage.getItem("saved_list"));
+  }
+  handleSave() {
+    localStorage.setItem("saved_list", [
+      JSON.stringify(this.state.SelectedList),
+    ]);
+    console.log(localStorage.getItem("hello"));
+    console.log(this.state.SelectedList);
+  }
   filterList() {
     let list = this.state.List;
     let q = this.state.q;
@@ -231,6 +266,14 @@ class SelectTableComponent extends React.Component {
     this.setState((prevState) => ({
       code: {
         ...prevState.code,
+        value,
+      },
+    }));
+  };
+  setSave = (value) => {
+    this.setState((prevState) => ({
+      save: {
+        ...prevState.save,
         value,
       },
     }));
@@ -297,7 +340,6 @@ class SelectTableComponent extends React.Component {
                 <div
                   style={{ height: "0px", overflow: "hidden", width: "0px" }}
                 >
-                  {" "}
                   <ReactExcel
                     initialData={this.state.initialData}
                     onSheetUpdate={(currentSheet) => {
@@ -561,6 +603,26 @@ class SelectTableComponent extends React.Component {
                     ))}
                   </tbody>
                 </Table>
+                {this.state.SelectedList &&
+                this.state.SelectedList.length > 0 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      // width: "1000px",
+                      justifyContent: "space-between",
+                      paddingLeft: "20px",
+                      paddingRight: "20px",
+                    }}
+                  >
+                    <p>Name: </p>
+                    <p>Signature: </p>
+                    <div style={{ display: "flex" }}>
+                      <p style={{ paddingRight: "10px" }}>Date: </p>
+                      {this.state.currentDateTime}
+                    </div>
+                  </div>
+                ) : null}
               </div>
             ) : (
               <div>
@@ -618,6 +680,26 @@ class SelectTableComponent extends React.Component {
                       ))}
                     </tbody>
                   </Table>
+                  {this.state.SelectedList &&
+                  this.state.SelectedList.length > 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        // width: "1000px",
+                        justifyContent: "space-between",
+                        paddingLeft: "20px",
+                        paddingRight: "20px",
+                      }}
+                    >
+                      <p>Name: </p>
+                      <p>Signature: </p>
+                      <div style={{ display: "flex" }}>
+                        <p style={{ paddingRight: "10px" }}>Date: </p>
+                        {this.state.currentDateTime}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             )}
@@ -626,8 +708,37 @@ class SelectTableComponent extends React.Component {
             <div className="button" onClick={(e) => this.onMasterCheckClear(e)}>
               <Button text={"Clear"} />
             </div>
-            <div className="button">
+            <div style={{ paddingTop: "17px" }}>
+              <input
+                placeholder={"Name"}
+                style={{
+                  height: "37px",
+                  borderRadius: "4px",
+                  borderColor: "transparent",
+                  paddingLeft: "15px",
+                }}
+                onChange={this.onChangeSave}
+                ref={(el) => (this.state.code = el)}
+              />
+            </div>
+            <div className="button" onClick={this.handleSave}>
               <Button text={"Save"} />
+            </div>
+            <div className="dropdown">
+              <div style={{ margin: "5px 0" }}>
+                <Select
+                  id="save"
+                  options={this.allStorage}
+                  multi={true}
+                  //onChange={this.onTortillaClick}
+                  //value={this.state.tortilla.value}
+                />
+                {!!this.props.error && this.props.touched && (
+                  <div style={{ color: "red", marginTop: ".5rem" }}>
+                    {this.props.error}
+                  </div>
+                )}
+              </div>
             </div>
             <div className="button">
               <ReactToPrint
